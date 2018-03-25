@@ -1,34 +1,33 @@
-// here we will create a routing
-var http = require('http');
-var fs = require('fs');
+// here we will create a routing using express
 
-var server = http.createServer(function (req, res) { 
-    console.log('request was made: ' + req.url);
-    if (req.url === '/home' || req.url === '/') { //'/home' means if going to hoem page
-        res.writeHead(200, {'Content-type': 'text/html'});
-        fs.createReadStream(__dirname + '/index.html').pipe(res);
-    } 
-    else if (req.url === '/contact-us') {//'/contact' means if going to contact page
-        res.writeHead(200, { 'Content-type': 'text/html' });
-        fs.createReadStream(__dirname + '/contact.html').pipe(res);
-    }
-    else if (req.url === '/api'){ //sending JSON info
-        var api = [{ name: 'mohammad', age: 39 }, { name: 'Diana', age: 30 }];
-        res.writeHead(200, { 'Content-type': 'application/json' });
-        res.end(JSON.stringify(api));
-    } 
-    else{ //if we request a 'not found page'
-        res.writeHead(404, { 'Content-type': 'text/html' });
-        fs.createReadStream(__dirname + '/404.html').pipe(res);
-    }
+var express = require('express');// to access the express module
+var app = express();
+
+
+app.get('/', function(req, res){
+    res.sendfile(__dirname + '/index.html');
 });
 
-server.listen(4000, '127.0.0.1');
-console.log('now we are listening to port 4000');
+app.get('/contact', function (req, res) {
+    res.sendfile(__dirname + '/contact.html');
+});
+
+
+app.get('/profile/:name', function (req, res) {
+    res.send('You requested too see a profile with the name of ' + req.params.name);
+});
+
+
+app.listen(4000);// to listen to port no. 4000
+
+
+
 
 
 
 /*list of important packages:
 1- node init: to create a package.json to track all installed packages
 2- $ npm install nodemon -g: to install nodemon to make an auto refresh of the node server
-3- $ npm install express: to install express routing package for easy routing use
+3- $ npm install express: to install express routing package for easy routing use*/
+
+
