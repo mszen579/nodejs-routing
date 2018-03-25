@@ -8,7 +8,7 @@ var server = http.createServer(function (req, res) {
         res.writeHead(200, {'Content-type': 'text/html'});
         fs.createReadStream(__dirname + '/index.html').pipe(res);
     } 
-    else if (req.url === '/contact') {//'/contact' means if going to contact page
+    else if (req.url === '/contact-us') {//'/contact' means if going to contact page
         res.writeHead(200, { 'Content-type': 'text/html' });
         fs.createReadStream(__dirname + '/contact.html').pipe(res);
     }
@@ -23,6 +23,12 @@ var server = http.createServer(function (req, res) {
     }
 });
 
-server.listen(3000, '127.0.0.1');
-console.log('now we are listening to port 3000');
+server.listen(4000, '127.0.0.1');
+console.log('now we are listening to port 4000');
 
+
+
+/*list of important packages:
+1- node init: to create a package.json to track all installed packages
+2- $ npm install nodemon -g: to install nodemon to make an auto refresh of the node server
+3- $ npm install express: to install express routing package for easy routing use
